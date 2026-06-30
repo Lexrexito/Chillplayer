@@ -1,3 +1,53 @@
+const CLIENT_ID = "1a034355dcc1432b800fee817403e899";
+
+const REDIRECT_URI = "https://lexrexito.github.io/Chillplayer/";
+
+const SCOPES = "user-read-playback-state user-modify-playback-state user-read-currently-playing";
+function loginSpotify() {'{'}
+
+const authUrl =
+
+"https://accounts.spotify.com/authorize" +
+
+"?response_type=token" +
+
+"&client_id=" + CLIENT_ID +
+
+"&scope=" + encodeURIComponent(SCOPES) +
+
+"&redirect_uri=" + encodeURIComponent(REDIRECT_URI);
+
+window.location = authUrl;
+
+{'}'}
+async function getCurrentTrack() {'{'}
+
+const token = localStorage.getItem("spotify_token");
+
+const res = await fetch("https://api.spotify.com/v1/me/player/currently-playing", {'{'}
+
+headers: {'{'} Authorization: "Bearer " + token {'}'}
+
+{'}'});
+
+const data = await res.json();
+
+console.log(data);
+
+{'}'}
+async function toggleSpotifyPlayback() {'{'}
+
+const token = localStorage.getItem("spotify_token");
+
+await fetch("https://api.spotify.com/v1/me/player/toggle-playback", {'{'}
+
+method: "PUT",
+
+headers: {'{'} Authorization: "Bearer " + token {'}'}
+
+{'}'});
+
+{'}'}
 <!DOCTYPE html>
 <html lang="es">
 <head>
